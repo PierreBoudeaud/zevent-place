@@ -1,28 +1,27 @@
 // ==UserScript==
-// @name         Reddit Place - Armée de Kameto
-// @namespace    https://github.com/CorentinGC/reddit-place-kcorp
-// @version      0.12
-// @description  On va récuperer ce qui nous est dû de droit.
+// @name         ZEvent Place fork KCorp reddit place
+// @namespace    https://github.com/PierreBoudeaud/zevent-place
+// @version      0.1
+// @description  Go dessiner pour la bonne cause
 // @author       Adcoss95 & CorentinGC
-// @match        https://hot-potato.reddit.com/embed*
-// @match        https://new.reddit.com/r/place/*
-// @match        https://www.reddit.com/r/place/*
-// @icon         https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/icon.jpg
+// @match        https://place.zevent.fr
+// @match        https://place.zevent.fr/*
+// @icon         https://raw.githubusercontent.com/PierreBoudeaud/zevent-place/main/icon.jpg
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/kcorp.user.js
-// @updateURL    https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/kcorp.user.js
-// @supportURL   https://github.com/CorentinGC/reddit-place-kcorp/issues
+// @downloadURL  https://raw.githubusercontent.com/PierreBoudeaud/zevent-place/main/kcorp.user.js
+// @updateURL    https://raw.githubusercontent.com/PierreBoudeaud/zevent-place/main/kcorp.user.js
+// @supportURL   https://github.com/PierreBoudeaud/zevent-place/issues
 
 // ==/UserScript==
-
+// credits to Adcoss95 & CorentinGC for the reddit place overlay !
 // credits to the osu! logo team for script base !
-const DEBUG = false;
+const DEBUG = true;
 
 const UPDATE_URL = GM_info.script.updateURL;
 const DISCORD_URL = "https://discord.gg/kameto";
-const OVERLAY_URL = "https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/overlay.png";
-const VERSION_URL = "https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/version.json";
-const REDDIT_URL = "https://new.reddit.com/r/place/";
+const OVERLAY_URL = "https://raw.githubusercontent.com/PierreBoudeaud/zevent-place/main/overlay.png";
+const VERSION_URL = "https://raw.githubusercontent.com/PierreBoudeaud/zevent-place/main/version.json";
+const PLACE_URL = "https://place.zevent.fr/";
 
 const allowedLangs = ['fr', 'en'];
 const defaultOpts = {
@@ -66,7 +65,7 @@ const LANGS = {
         btn_toggle_cache: "{{0}} le cache de l'overlay",
         overlay_opacity: "Opacité de l'overlay",
         join_discord: "Rejoindre le discord de Kamet0",
-        by_shadow_team: "KCorp's overlay v{{0}} par la Team de L'Ombre"
+        by_shadow_team: "ZEvent overlay v{{0}}"
     },
     en: {
         update_available: "`Update available v{{0}} > v{{1}} ! Click here to install`",
@@ -82,7 +81,7 @@ const LANGS = {
         btn_toggle_cache: "{{0}} overlay's cache",
         overlay_opacity: "Overlay's opacity",
         join_discord: "Join Kamet0's discord !",
-        by_shadow_team: "KCorp's overlay v{{0}} by la Shadow's Team"
+        by_shadow_team: "ZEvent overlay v{{0}}"
     },
 };
 const f = (key, ...vars) => {
@@ -93,7 +92,7 @@ const f = (key, ...vars) => {
 
 if(window.top !== window.self) refreshOpts();
 
-const log = (msg) => DEBUG ? console.log("K-Corp Overlay - ", msg) : null
+const log = (msg) => DEBUG ? console.log("ZEvent Overlay - ", msg) : null
 const open = (link, autoclose=false) => {
     let tab = window.open(link, "_blank");
     tab.focus();
@@ -204,8 +203,8 @@ const showUpdate = (version) => {
                 overlay.style.left = 0;
                 overlay.style.top = 0;
                 overlay.style.imageRendering = "pixelated";
-                overlay.style.width = "2000px";
-                overlay.style.height = "2000px";
+                overlay.style.width = "500px";
+                overlay.style.height = "500px";
                 overlay.style.opacity = + opts.OVERLAY_STATE;
                 
                 canvasContainer[0].parentNode.appendChild(overlay);
@@ -380,7 +379,7 @@ const showUpdate = (version) => {
                         if(opts.LANG === event.target.id) return;
                         opts.LANG = event.target.id;
                         saveOpts();
-                        window.location.href = REDDIT_URL;
+                        window.location.href = PLACE_URL;
                     })
                 }
                 // Version
