@@ -168,20 +168,17 @@ const showUpdate = (version) => {
         log({opts});
 
         window.addEventListener("load", () => {
-            log("Searching embed");
-            let embed = document.getElementsByTagName("mona-lisa-embed");
-            if ("undefined" === typeof embed || embed.length < 1) return;
-            log("Found embed");
-
             log("Searching canvas");
-            let canvas = embed[0].shadowRoot.children[0].getElementsByTagName("mona-lisa-canvas");
-            if ("undefined" === typeof canvas || canvas.length < 1) return;
+            let gameContainers = document.getElementsByTagName("game-container__inner");
+            if ("undefined" === typeof gameContainers || gameContainers.length < 1) return;
             log("Found canvas");
+            const gameContainer = gameContainers[0];
 
             log("Searching canvasContainer");
-            let canvasContainer = canvas[0].shadowRoot.children[0].getElementsByTagName("canvas");
+            let canvasContainer = gameContainer.getElementsByTagName("canvas");
             if ("undefined" === typeof canvasContainer || canvasContainer.length < 1) return;
             log("Found canvasContainer");
+            const canva = canvasContainer[0];
 
             let overlay, timer;
             const updateOverlaySrc = () => {
@@ -206,8 +203,8 @@ const showUpdate = (version) => {
                 overlay.style.width = "500px";
                 overlay.style.height = "500px";
                 overlay.style.opacity = + opts.OVERLAY_STATE;
-                
-                canvasContainer[0].parentNode.appendChild(overlay);
+
+                canva.appendChild(overlay);
                 log("Overlay reloaded");
             }
 
